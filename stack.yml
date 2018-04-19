@@ -1,0 +1,9 @@
+provider:
+  name: faas
+  gateway: http://localhost:8080
+
+functions:
+  nfn_fieldbook:
+    lang: python3
+    handler: ./functions/nfn_fieldbook
+    image: zooniverse/nfn_fieldbook
