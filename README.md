@@ -1,7 +1,7 @@
 # nfn-faas
 ## Functions as a Service for Notes from Nature
 
-This repo contains the Field Book functions for NfN as well as the [OpenFaaS](https://github.com/openfaas/faas)-built makings of a Docker container. The built container is located on [Dockerhub](https://hub.docker.com/r/zooniverse/func_i2a_hubble/). This container lives in Docker Swarm. It's designed to be used as an external extractor for [Caesar](https://github.com/zooniverse/caesar). 
+This repo contains the Field Book functions for NfN as well as the [OpenFaaS](https://github.com/openfaas/faas)-built makings of a Docker container. The built container is located on [Dockerhub](https://hub.docker.com/r/zooniverse/nfn_fieldbook/). This container lives in Docker Swarm. It's designed to be used as an external extractor for [Caesar](https://github.com/zooniverse/caesar). 
 
 The `nfn_fieldbook` function takes a Caesar-style Classification as its input and returns returns a JSON object of the badges that are relevant to this classification. An example request would look like this:
 
