@@ -14,7 +14,7 @@ def handle(req):
         parser = ClassificationParser(parsed_json)
     except (json.JSONDecodeError) as e:
         response = {'error': 'could not parse classification'}
-        return response
+        sys.exit(json.dumps(response))
 
     if 'workflow' in parser.params:
         response['workflow'] = parser.params['workflow']
