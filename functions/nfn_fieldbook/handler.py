@@ -12,13 +12,20 @@ def handle(req):
     try:
         parsed_json = json.loads(req)
         parser = ClassificationParser(parsed_json)
-    except:
-        response['error'] = "Invalid JSON"
+    except (json.JSONDecodeError) as e:
+        response = {'error': 'could not parse classification'}
+        return response
+
+    if 'workflow' in parser.params:
+        response['workflow'] = parser.params['workflow']
+    else:
+        response['error'] = {'error': 'invalid workflow'}
+        print(json.dumps(response['error']))
+        return response
 
     response['decade'] = check_decade(parser)
     response['country'] = parser.get_basic('country')
     response['state'] = parser.get_basic('state')
-    response['workflow'] = parser.params['workflow']
     response['time'] = check_time(parser)
     response['earth_day'] = earth_day(parser)
 
@@ -37,16 +44,14 @@ def check_decade(parser):
 def check_time(parser):
     if hasattr(parser, 'created_at'):
         time = dateparse(parser.created_at)
-        if 21 < time.hour < 3:
-            return "nightowl"
-        elif 3 < time.hour < 9:
+        if 3 <= time.hour < 9:
             return "earlybird"
-        elif 9 < time.hour < 15:
+        elif 9 <= time.hour < 15:
             return "lunchbreak"
-        elif 15 < time.hour < 21:
+        elif 15 <= time.hour < 21:
             return "dinnertime"
         else:
-            return None
+            return "nightowl"
     else:
         return None
 

@@ -7,19 +7,10 @@ class ClassificationParser(object):
     def __init__(self, classification):
         self.classification = classification
         self.created_at = self.classification['created_at']
-        self.params = {k: v[0] for k, v in urlparse.parse_qs(os.environ['Http_Query']).items()}
+        self.params = {k: v[0] for k, v in urlparse.parse_qs(os.getenv("Http_Query")).items()}
         self.metadata = {k.lower():v for k,v in self.classification['subject']['metadata'].items()}
-        self.tasks = self.flatten(classification['annotations'])
+        self.tasks = self.classification['annotations']
         self.properties = {}
-
-    def flatten(self, anno):
-        f = {}
-        for a in anno:
-            f[a['task']] = a['value']
-            for subanno in a['value']:
-                if 'task' in subanno:
-                    f[subanno['task']] = subanno['value']
-        return f
 
     def get_basic(self, label):
         if label in self.metadata:
