@@ -20,8 +20,7 @@ def handle(req):
         response['workflow'] = parser.params['workflow']
     else:
         response['error'] = {'error': 'invalid workflow'}
-        print(json.dumps(response['error']))
-        return response
+        sys.exit(json.dumps(response))
 
     response['decade'] = check_decade(parser)
     response['country'] = parser.get_basic('country')
