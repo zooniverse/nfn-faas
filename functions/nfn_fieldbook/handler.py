@@ -14,13 +14,10 @@ def handle(req):
         parser = ClassificationParser(parsed_json)
     except (json.JSONDecodeError) as e:
         response = {'error': 'could not parse classification'}
-        sys.exit(json.dumps(response))
+        return json.dumps(response)
 
     if 'workflow' in parser.params:
         response['workflow'] = parser.params['workflow']
-    else:
-        response['error'] = {'error': 'invalid workflow'}
-        sys.exit(json.dumps(response))
 
     response['decade'] = check_decade(parser)
     response['country'] = parser.get_basic('country')
