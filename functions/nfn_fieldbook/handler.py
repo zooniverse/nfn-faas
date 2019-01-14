@@ -18,10 +18,13 @@ def handle(req):
 
     if 'workflow' in parser.params:
         response['workflow'] = parser.params['workflow']
+    if 'year' in parser.params:
+        response['decade'] = check_decade(parser)
+    if 'country' in parser.params:
+        response['country'] = parser.get_basic('country')
+    if 'state' in parser.params:
+        response['state'] = parser.get_basic('state')
 
-    response['decade'] = check_decade(parser)
-    response['country'] = parser.get_basic('country')
-    response['state'] = parser.get_basic('state')
     response['time'] = check_time(parser)
     response['earth_day'] = earth_day(parser)
 
