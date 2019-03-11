@@ -3,6 +3,7 @@ import sys
 import json
 import urllib.parse as urlparse
 from dateutil.parser import parse as dateparse
+from datetime import timedelta
 sys.path.append('/root/function')
 
 from classification_parser import ClassificationParser
@@ -42,7 +43,8 @@ def check_decade(parser):
 
 def check_time(parser):
     if hasattr(parser, 'created_at'):
-        time = dateparse(parser.created_at)
+        pre_time = dateparse(parser.created_at)
+        time = pre_time + timedelta(int(parser.metadata["utc_offset"]))
         if 3 <= time.hour < 9:
             return "earlybird"
         elif 9 <= time.hour < 15:

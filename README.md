@@ -21,7 +21,7 @@ The classification's `created_at` value is examined for the purpose of awarding 
 | `lunchbreak` | 0900 < .created_at < 1500 |
 | `dinnertime` | 1500 < .created_at < 2100 |
 
-
+This uses the `utc_offset` value in the classification metadata in order to correctly calculate the time at the location the user made the classification.
 
 ### Decade
 Searches for the year in either a) the subject metadata or b) the annotation, indicated by the task number in the query param, in that order. 
